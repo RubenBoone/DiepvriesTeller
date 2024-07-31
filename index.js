@@ -63,7 +63,9 @@ app.delete('/program/:id', async (req, res) => {
     const id = req.params.id;
     Program.findByIdAndDelete(id)
     .then((response) => {
-        Product.deleteMany({programId: id})
+        Product.deleteMany({programId: id}).then((result) => {
+            console.log("Removing: " + result);
+        })
         res.status(200).send("Removed program");
     })
     .catch((error) => {
